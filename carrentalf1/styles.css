@@ -1,0 +1,370 @@
+/* ===== Car Rental - dark "garage / racing" theme ===== */
+:root {
+    --primary: #e10600;        /* racing red */
+    --primary-dark: #b30500;
+    --accent: #00b4d8;         /* headlight blue */
+    --warn: #f5a524;           /* amber */
+    --danger: #ff3b30;
+    --bg: #070707;
+    --card: #141414;
+    --card-2: #1b1b1b;
+    --text: #f2f2f2;
+    --muted: #9a9a9a;
+    --border: #2a2a2a;
+    --radius: 12px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    background:
+        radial-gradient(900px 380px at 85% -10%, rgba(225, 6, 0, 0.28), transparent 70%),
+        radial-gradient(700px 300px at 0% 0%, rgba(0, 180, 216, 0.12), transparent 70%),
+        var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 44px 20px 70px;
+    line-height: 1.5;
+}
+
+/* racing stripe along the top of every page */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    z-index: 50;
+    background: repeating-linear-gradient(90deg, var(--primary) 0 40px, #fff 40px 80px, #111 80px 120px);
+}
+
+/* ----- Headings ----- */
+h1 {
+    font-size: 2rem;
+    margin: 10px 0 28px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-style: italic;
+    font-weight: 800;
+}
+h1::before { content: "\1F697  "; font-style: normal; }
+/* road centre-line under the title */
+h1::after {
+    content: "";
+    display: block;
+    height: 4px;
+    margin-top: 14px;
+    border-radius: 2px;
+    background: repeating-linear-gradient(90deg, #facc15 0 26px, transparent 26px 46px);
+}
+h2 { font-size: 1.25rem; margin: 36px 0 12px; letter-spacing: .03em; }
+
+/* ----- Top "back" links ----- */
+body > a {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+body > a::before { content: "\2190  "; }
+body > a:hover { color: #fff; text-decoration: underline; }
+
+/* ----- Forms as dashboard panels ----- */
+form {
+    background: linear-gradient(180deg, var(--card-2), var(--card));
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--primary);
+}
+form p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+    margin: 0 0 16px;
+}
+label {
+    min-width: 140px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: .8rem;
+    letter-spacing: .08em;
+}
+input[type="text"],
+input[type="date"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #0d0d0d;
+    color: var(--text);
+    color-scheme: dark;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+}
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    background: #000;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.3);
+}
+
+/* ----- Buttons ----- */
+input[type="submit"] {
+    padding: 11px 26px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #ff2a1f, var(--primary-dark));
+    color: #fff;
+    font-size: .95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(225, 6, 0, 0.4);
+    transition: filter .15s, transform .1s;
+}
+input[type="submit"]:hover { filter: brightness(1.15); transform: translateY(-1px); }
+input[name="deleteCustomerBtn"],
+input[name="deleteRentalBtn"] { background: #3a0b0b; border: 1px solid var(--danger); box-shadow: none; }
+input[name="deleteCustomerBtn"]:hover,
+input[name="deleteRentalBtn"]:hover { background: var(--danger); }
+
+/* ----- Detail cards (edit / delete confirm pages) ----- */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 6px 24px;
+    background: linear-gradient(180deg, var(--card-2), var(--card));
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--primary);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px 24px;
+    margin-top: 18px;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.container:hover { transform: translateY(-2px); border-left-color: var(--accent); }
+.container h2,
+.container h3 {
+    margin: 4px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+/* ----- Action links as buttons ----- */
+.editAndDelete {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+}
+.editAndDelete form {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: none;
+}
+.editAndDelete a,
+td a {
+    display: inline-block;
+    padding: 6px 15px;
+    margin: 2px 4px 2px 0;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    text-decoration: none;
+    color: #fff;
+    background: var(--primary);
+    transition: filter .15s, transform .1s;
+}
+.editAndDelete a:hover,
+td a:hover { filter: brightness(1.2); transform: translateY(-1px); }
+a[href*="viewrentals"] { background: var(--accent); color: #001; }
+a[href*="edit"]         { background: var(--warn); color: #111; }
+a[href*="delete"]       { background: var(--danger); }
+
+/* ----- Table: like a dashboard / timing board ----- */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+th, td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: #000;
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    border-bottom: 2px solid var(--primary);
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: #101010; }
+tr:hover td { background: #1f1010; }
+
+/* ----- Small screens ----- */
+@media (max-width: 600px) {
+    body { padding: 30px 12px 40px; }
+    h1 { font-size: 1.45rem; }
+    label { min-width: 100%; }
+    table { display: block; overflow-x: auto; }
+    .hint { margin-left: 0; }
+}
+
+/* ===== Login / register / "who did it" parts ===== */
+.userbar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #000; border: 1px solid var(--border); border-left: 4px solid var(--accent);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 10px 18px; margin-bottom: 18px;
+}
+.userbar a.logout {
+    padding: 7px 16px; border-radius: 6px; background: var(--danger); color: #fff;
+    text-decoration: none; font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em;
+}
+.alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-weight: 600; }
+.alert.error { background: #2a0a0a; color: #ff8a80; border: 1px solid #7f1d1d; }
+.alert.ok    { background: #08210f; color: #86efac; border: 1px solid #166534; }
+.switch { margin-top: 18px; color: var(--muted); }
+.switch a { color: var(--accent); font-weight: 600; }
+.table-wrap { overflow-x: auto; border-radius: var(--radius); }
+td.actions { white-space: nowrap; }
+th, td { font-size: .92rem; }
+
+/* ===== XSS assignment additions ===== */
+.rentals-table { width: 100%; margin-top: 50px; }   /* replaces the inline style (blocked by CSP) */
+.hint { flex-basis: 100%; color: var(--muted); font-size: .85rem; margin-left: 154px; }
+
+/* ===== Roles, nav, stats, logs, fleet ===== */
+select {
+    flex: 1;
+    min-width: 200px;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #0d0d0d;
+    color: var(--text);
+    color-scheme: dark;
+}
+select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.3); }
+
+.userbar .who { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.nav { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.nav a { color: #ddd; text-decoration: none; font-weight: 600; font-size: .9rem; padding: 7px 13px; border-radius: 6px; transition: background .15s, color .15s; }
+.nav a:hover { background: #222; color: #fff; }
+
+.badge { padding: 3px 10px; border-radius: 999px; font-size: .7rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.role-admin     { background: var(--primary); color: #fff; }
+.role-moderator { background: var(--warn); color: #111; }
+.role-editor    { background: var(--accent); color: #001; }
+.role-customer  { background: #22c55e; color: #031; }
+
+/* dashboard stat cards */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 8px; }
+.stat { background: linear-gradient(180deg, var(--card-2), var(--card)); border: 1px solid var(--border); border-bottom: 3px solid var(--primary);
+        border-radius: var(--radius); padding: 16px 18px; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+.stat .num { font-size: 2.2rem; font-weight: 800; line-height: 1.1; color: #fff; }
+.stat .lbl { color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-size: .75rem; }
+.stat:nth-child(2) { border-bottom-color: var(--accent); }
+.stat:nth-child(3) { border-bottom-color: var(--warn); }
+.stat:nth-child(4) { border-bottom-color: #22c55e; }
+
+/* search / filter bar */
+.searchbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 14px 0 18px; padding: 14px; border-top-width: 1px; }
+.searchbar input[type="text"], .searchbar select { flex: 1; min-width: 220px; }
+.searchbar a.clear { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+/* forms inside table cells (change role, cancel booking) */
+td form { display: flex; gap: 8px; align-items: center; padding: 0; background: none; border: none; box-shadow: none; }
+td form select { min-width: 130px; flex: none; padding: 7px 10px; }
+td form input[type="submit"] { padding: 7px 14px; font-size: .78rem; }
+input[name="cancelBookingBtn"] { background: #3a0b0b; border: 1px solid var(--danger); box-shadow: none; }
+input[name="cancelBookingBtn"]:hover { background: var(--danger); }
+
+/* activity log action tags */
+.act { padding: 3px 9px; border-radius: 6px; font-size: .72rem; font-weight: 800; letter-spacing: .05em; }
+.act-good { background: #08210f; color: #86efac; border: 1px solid #166534; }
+.act-bad  { background: #2a0a0a; color: #ff8a80; border: 1px solid #7f1d1d; }
+.act-warn { background: #2a1d05; color: #fcd34d; border: 1px solid #92400e; }
+.act-info { background: #07202a; color: #7dd3fc; border: 1px solid #0c4a6e; }
+
+/* role explanation cards */
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.rolecard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.rolecard p { margin: 8px 0 0; color: var(--muted); font-size: .9rem; }
+
+/* customer fleet tiles */
+.fleet { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.car { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+       padding: 12px 14px; font-weight: 600; transition: transform .2s, border-color .2s; }
+.car .icon { font-size: 1.8rem; }
+.car:hover { transform: translateY(-4px); border-color: var(--primary); }
+
+/* ===== Simple animations ===== */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes rowIn  { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
+@keyframes road   { to { background-position: 46px 0; } }
+
+.userbar, .alert, .stat, .rolecard, .car, .container, body > form, .table-wrap { animation: fadeUp .5s ease both; }
+.stat:nth-child(2), .rolecard:nth-child(2), .car:nth-child(2) { animation-delay: .08s; }
+.stat:nth-child(3), .rolecard:nth-child(3), .car:nth-child(3) { animation-delay: .16s; }
+.stat:nth-child(4), .rolecard:nth-child(4), .car:nth-child(4) { animation-delay: .24s; }
+tr { animation: rowIn .4s ease both; }
+tr:nth-child(2) { animation-delay: .05s; } tr:nth-child(3) { animation-delay: .1s; }
+tr:nth-child(4) { animation-delay: .15s; } tr:nth-child(5) { animation-delay: .2s; }
+
+/* the yellow road line under titles keeps "driving" */
+h1::after {
+    background: linear-gradient(90deg, #facc15 0 26px, transparent 26px 46px) repeat-x;
+    background-size: 46px 4px;
+    animation: road 1.6s linear infinite;
+}
+.stat:hover { transform: translateY(-3px); transition: transform .2s; }
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}
+
+/* ===== Recycle bin / rental images ===== */
+.thumb { width: 60px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); display: block; }
+.thumb-lg { width: 100%; max-width: 260px; max-height: 180px; object-fit: cover; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 10px; grid-column: 1 / -1; }
+input[type="file"] {
+    flex: 1; min-width: 200px; padding: 9px 10px; border: 1px solid var(--border); border-radius: 8px;
+    background: #0d0d0d; color: var(--text);
+}
+input[name="restoreRentalBtn"] { background: #14532d; border: 1px solid #22c55e; box-shadow: none; }
+input[name="restoreRentalBtn"]:hover { background: #22c55e; color: #042; }
